@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:longClickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/colorAccentTranslucid">
+
+    <RelativeLayout
+        android:id="@+id/loadingView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        tools:ignore="UselessParent">
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            app:mpb_progressStyle="circular"
+            app:mpb_useIntrinsicPadding="false"
+            app:mpb_setBothDrawables="false"
+            app:mpb_indeterminateTint="@color/colorAccent"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

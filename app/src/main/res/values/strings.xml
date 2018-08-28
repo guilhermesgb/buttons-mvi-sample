@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">Buttons</string>
+    <string name="toast_button_just_clicked_format">Button \'%1$s\' just clicked!</string>
+    <string name="error_loading_buttons">Could not load buttons from the server!</string>
+    <string name="error_network_loading_buttons">There was a network error while loading buttons!</string>
+
+</resources>
