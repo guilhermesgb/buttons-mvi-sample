@@ -5,6 +5,9 @@ import android.content.Context;
 import com.github.guilhermesgb.buttons.model.Button;
 import com.github.guilhermesgb.buttons.model.ButtonsViewState;
 import com.github.guilhermesgb.buttons.model.FetchButtonsUseCase;
+import com.github.guilhermesgb.buttons.model.dagger.DaggerDependencies;
+import com.github.guilhermesgb.buttons.model.dagger.DatabaseModule;
+import com.github.guilhermesgb.buttons.model.dagger.NetworkModule;
 import com.github.guilhermesgb.buttons.model.database.ButtonDao;
 import com.github.guilhermesgb.buttons.model.database.DatabaseResource;
 import com.github.guilhermesgb.buttons.model.network.ApiEndpoints;
@@ -49,10 +52,14 @@ import static org.mockito.Mockito.when;
 public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
 
     private FetchButtonsUseCase setupFetchButtonsUseCase(String baseUrl) {
-        return spy(new FetchButtonsUseCase(baseUrl, mock(Context.class)));
+        return spy(DaggerDependencies.builder()
+            .databaseModule(new DatabaseModule(mock(Context.class)))
+            .networkModule(new NetworkModule(baseUrl))
+            .build().fetchButtonsUseCase());
     }
 
     @Test
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void fetchButtons_withNoLocalButtons_andNoRemoteButtonsAvailable_shouldYieldEmptyResults() throws Exception {
         // ### SETUP PHASE ###
 
@@ -105,6 +112,7 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
     }
 
     @Test
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void fetchButtons_withNoLocalButtons_butRemoteButtonsAvailable_shouldYieldTheseRemoteButtons() throws Exception {
         // ### SETUP PHASE ###
 
@@ -198,6 +206,7 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
     }
 
     @Test
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void fetchButtons_someLocalButtons_butRemoteButtonsAvailable_shouldOverrideWithRemoteButtons() throws Exception {
         // ### SETUP PHASE ###
 
@@ -337,6 +346,7 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
     }
 
     @Test
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void fetchButtons_someLocalButtons_butFailedToFetchRemoteButtons_shouldPreserveLocalButtons() throws Exception {
         // ### SETUP PHASE ###
 

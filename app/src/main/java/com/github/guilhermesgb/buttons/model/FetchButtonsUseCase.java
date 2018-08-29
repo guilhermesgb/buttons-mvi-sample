@@ -1,18 +1,21 @@
 package com.github.guilhermesgb.buttons.model;
 
-import android.content.Context;
-
+import com.github.guilhermesgb.buttons.model.database.DatabaseResource;
+import com.github.guilhermesgb.buttons.model.network.ApiEndpoints;
 import com.github.guilhermesgb.buttons.model.utils.UseCase;
 import com.github.guilhermesgb.buttons.view.FetchButtonsAction;
 
 import java.util.LinkedList;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 public class FetchButtonsUseCase extends UseCase {
 
-    public FetchButtonsUseCase (String apiBaseUrl, Context context) {
-        super(apiBaseUrl, context);
+    @Inject
+    public FetchButtonsUseCase(ApiEndpoints apiEndpoints, DatabaseResource databaseResource) {
+        super(apiEndpoints, databaseResource);
     }
 
     public Observable<ButtonsViewState> fetchButtons(@SuppressWarnings("unused") FetchButtonsAction action) {

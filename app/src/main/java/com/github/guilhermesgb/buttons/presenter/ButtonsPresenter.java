@@ -1,24 +1,23 @@
 package com.github.guilhermesgb.buttons.presenter;
 
-import android.content.Context;
-
 import com.github.guilhermesgb.buttons.model.ButtonsViewState;
 import com.github.guilhermesgb.buttons.model.FetchButtonsUseCase;
 import com.github.guilhermesgb.buttons.view.ButtonsView;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.github.guilhermesgb.buttons.model.network.ApiResource.WILL_USE_REAL_API;
-
 public class ButtonsPresenter extends MviBasePresenter<ButtonsView, ButtonsViewState> {
 
-    private FetchButtonsUseCase fetchButtonsUseCase;
+    private final FetchButtonsUseCase fetchButtonsUseCase;
 
-    public ButtonsPresenter(Context context) {
-        this.fetchButtonsUseCase = new FetchButtonsUseCase(WILL_USE_REAL_API, context);
+    @Inject
+    public ButtonsPresenter(FetchButtonsUseCase fetchButtonsUseCase) {
+        this.fetchButtonsUseCase = fetchButtonsUseCase;
     }
 
     @Override

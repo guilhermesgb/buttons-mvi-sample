@@ -52,6 +52,11 @@ dependencies {
     }
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.hamcrest:hamcrest-core:1.3'

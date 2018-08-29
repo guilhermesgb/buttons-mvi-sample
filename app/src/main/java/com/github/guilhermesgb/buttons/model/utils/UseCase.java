@@ -1,27 +1,24 @@
 package com.github.guilhermesgb.buttons.model.utils;
 
-import android.content.Context;
-
 import com.github.guilhermesgb.buttons.model.database.DatabaseResource;
 import com.github.guilhermesgb.buttons.model.network.ApiEndpoints;
-import com.github.guilhermesgb.buttons.model.network.ApiResource;
 
 public abstract class UseCase {
 
-    private final String apiBaseUrl; //for networking purposes (endpoint calls)
-    private final Context context;  //for persistence purposes (database operations)
+    private final ApiEndpoints apiEndpoints;
+    private final DatabaseResource databaseResource;
 
-    public UseCase(String apiBaseUrl, Context context) {
-        this.apiBaseUrl = apiBaseUrl;
-        this.context = context;
+    public UseCase(ApiEndpoints apiEndpoints, DatabaseResource databaseResource) {
+        this.apiEndpoints = apiEndpoints;
+        this.databaseResource = databaseResource;
     }
 
     protected ApiEndpoints getApi() {
-        return ApiResource.getInstance(apiBaseUrl);
+        return apiEndpoints;
     }
 
     public DatabaseResource getDatabase() {
-        return DatabaseResource.getInstance(context);
+        return databaseResource;
     }
 
 }

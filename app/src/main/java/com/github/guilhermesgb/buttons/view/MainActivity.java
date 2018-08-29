@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.github.guilhermesgb.buttons.R;
 import com.github.guilhermesgb.buttons.model.Button;
 import com.github.guilhermesgb.buttons.model.ButtonsViewState;
+import com.github.guilhermesgb.buttons.model.dagger.DaggerDependencies;
+import com.github.guilhermesgb.buttons.model.dagger.DatabaseModule;
+import com.github.guilhermesgb.buttons.model.dagger.NetworkModule;
 import com.github.guilhermesgb.buttons.presenter.ButtonsPresenter;
 import com.github.guilhermesgb.buttons.view.renderers.ButtonToBottomRenderer;
 import com.github.guilhermesgb.buttons.view.renderers.ButtonToLeftRenderer;
@@ -33,6 +36,8 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static com.github.guilhermesgb.buttons.model.network.ApiResource.WILL_USE_REAL_API;
 
 public class MainActivity extends MviActivity<ButtonsView, ButtonsPresenter> implements ButtonsView {
 
@@ -69,7 +74,10 @@ public class MainActivity extends MviActivity<ButtonsView, ButtonsPresenter> imp
     @NonNull
     @Override
     public ButtonsPresenter createPresenter() {
-        return new ButtonsPresenter(getApplicationContext());
+        return DaggerDependencies.builder()
+            .databaseModule(new DatabaseModule(getApplicationContext()))
+            .networkModule(new NetworkModule(WILL_USE_REAL_API))
+            .build().buttonsPresenter();
     }
 
     @NonNull
