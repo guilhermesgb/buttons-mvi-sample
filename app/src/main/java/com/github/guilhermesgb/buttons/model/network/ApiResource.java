@@ -15,9 +15,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ApiResource {
 
     //For better code readability semantically-wise, users of this ApiResource can pass around
-    // the constant below to the public getInstance method below to indicate desire of pointing
-    // to real API configured on the build.gradle file (the API_BASE_URL variable) instead of
-    // overriding with another API url (for testing purposes).
+    // the constant below as the apiBaseUrl while creating a new ApiEndpoints instance in order
+    // to indicate desire of pointing to real API configured on the build.gradle file (the variable
+    // API_BASE_URL) instead of overriding with another API url (usually for testing purposes).
     public static final String WILL_USE_REAL_API = null;
 
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
