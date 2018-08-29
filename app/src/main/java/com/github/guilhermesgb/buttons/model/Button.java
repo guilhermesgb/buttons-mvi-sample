@@ -1,6 +1,7 @@
 package com.github.guilhermesgb.buttons.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverter;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,13 +11,14 @@ import com.google.gson.JsonObject;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.UUID;
 
 @Entity(
-    tableName = "button",
-    primaryKeys = {"name", "type"}
+    tableName = "button"
 )
 public class Button implements Serializable, Parcelable {
 
+    @PrimaryKey @NonNull private String uuid;
     @NonNull private String name;
     @NonNull private ButtonType type;
 
@@ -24,9 +26,15 @@ public class Button implements Serializable, Parcelable {
         TO_LEFT, TO_BOTTOM, TO_RIGHT
     }
 
-    public Button(@NonNull String name, @NonNull ButtonType type) {
+    public Button(@NonNull String uuid, @NonNull String name, @NonNull ButtonType type) {
+        this.uuid = uuid;
         this.name = name;
         this.type = type;
+    }
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
     }
 
     @NonNull
@@ -40,6 +48,7 @@ public class Button implements Serializable, Parcelable {
     }
 
     private Button(Parcel in) {
+        uuid = in.readString();
         name = in.readString();
         type = (ButtonType) in.readSerializable();
     }
@@ -63,15 +72,22 @@ public class Button implements Serializable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(uuid);
         parcel.writeString(name);
         parcel.writeSerializable(type);
     }
 
     public static Button dejsonizeFrom(JsonObject json) {
         return json == null ? null : new Button(
+            getRequiredUuid(json),
             getOptionalButtonName(json),
             getOptionalButtonType(json)
         );
+    }
+
+    private static String getRequiredUuid(JsonObject json) {
+        return json == null || !json.has("uuid")
+            ? UUID.randomUUID().toString() : json.get("uuid").getAsString();
     }
 
     private static String getOptionalButtonName(JsonObject json) {
@@ -96,19 +112,15 @@ public class Button implements Serializable, Parcelable {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
         Button button = (Button) other;
-        return name.equals(button.name) && type == button.type;
+        return uuid.equals(button.uuid) && name.equals(button.name) && type == button.type;
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new Object[] { name, type });
+        return Arrays.hashCode(new Object[] { uuid, name, type });
     }
 
 }

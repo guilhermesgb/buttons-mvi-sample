@@ -120,14 +120,17 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
         List<MockResponse> expectedResponses = Collections.singletonList
             (new MockResponse().setResponseCode(200).setBody("[\n" +
                 "  {\n" +
+                "    \"uuid\": \"0\",\n" +
                 "    \"name\": \"Apple\",\n" +
                 "    \"type\": \"to_bottom\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"uuid\": \"1\",\n" +
                 "    \"name\": \"yahoo\",\n" +
                 "    \"type\": \"to_left\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"uuid\": \"2\",\n" +
                 "    \"name\": \"Google\",\n" +
                 "    \"type\": \"to_right\"\n" +
                 "  }\n" +
@@ -198,9 +201,9 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
             verify(buttonDaoMock).findAll();
             verify(buttonDaoMock).deleteAll();
             List<Button> buttonsExpectedToHaveBeenStored = new LinkedList<>();
-            buttonsExpectedToHaveBeenStored.add(new Button("Apple", TO_BOTTOM));
-            buttonsExpectedToHaveBeenStored.add(new Button("yahoo", TO_LEFT));
-            buttonsExpectedToHaveBeenStored.add(new Button("Google", TO_RIGHT));
+            buttonsExpectedToHaveBeenStored.add(new Button("0", "Apple", TO_BOTTOM));
+            buttonsExpectedToHaveBeenStored.add(new Button("1", "yahoo", TO_LEFT));
+            buttonsExpectedToHaveBeenStored.add(new Button("2", "Google", TO_RIGHT));
             verify(buttonDaoMock).insertAll(buttonsExpectedToHaveBeenStored);
         });
     }
@@ -214,14 +217,17 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
         List<MockResponse> expectedResponses = Collections.singletonList
             (new MockResponse().setResponseCode(200).setBody("[\n" +
                 "  {\n" +
+                "    \"uuid\": \"0\",\n" +
                 "    \"name\": \"Apple\",\n" +
                 "    \"type\": \"to_bottom\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"uuid\": \"1\",\n" +
                 "    \"name\": \"yahoo\",\n" +
                 "    \"type\": \"to_left\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"uuid\": \"2\",\n" +
                 "    \"name\": \"Google\",\n" +
                 "    \"type\": \"to_right\"\n" +
                 "  }\n" +
@@ -232,11 +238,11 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
             ButtonDao buttonDaoMock = mock(ButtonDao.class);
             //Mocking database to return these buttons below.
             List<Button> buttonsFoundInDatabase = new LinkedList<>();
-            buttonsFoundInDatabase.add(new Button("Yahoo!!", TO_LEFT));
-            buttonsFoundInDatabase.add(new Button("GitHub", TO_RIGHT));
-            buttonsFoundInDatabase.add(new Button("Bitbucket", TO_BOTTOM));
-            buttonsFoundInDatabase.add(new Button("GitLab", TO_LEFT));
-            buttonsFoundInDatabase.add(new Button("Google", TO_BOTTOM));
+            buttonsFoundInDatabase.add(new Button("1", "Yahoo!!", TO_LEFT));
+            buttonsFoundInDatabase.add(new Button("5", "GitHub", TO_RIGHT));
+            buttonsFoundInDatabase.add(new Button("4", "Bitbucket", TO_BOTTOM));
+            buttonsFoundInDatabase.add(new Button("3", "GitLab", TO_LEFT));
+            buttonsFoundInDatabase.add(new Button("2", "Google", TO_BOTTOM));
             when(buttonDaoMock.findAll()).thenReturn(Single.just(buttonsFoundInDatabase));
             //Turning database writes into no-ops.
             doNothing().when(buttonDaoMock).insertAll(ArgumentMatchers.anyList());
@@ -338,9 +344,9 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
             verify(buttonDaoMock).findAll();
             verify(buttonDaoMock).deleteAll();
             List<Button> buttonsExpectedToHaveBeenStored = new LinkedList<>();
-            buttonsExpectedToHaveBeenStored.add(new Button("Apple", TO_BOTTOM));
-            buttonsExpectedToHaveBeenStored.add(new Button("yahoo", TO_LEFT));
-            buttonsExpectedToHaveBeenStored.add(new Button("Google", TO_RIGHT));
+            buttonsExpectedToHaveBeenStored.add(new Button("0", "Apple", TO_BOTTOM));
+            buttonsExpectedToHaveBeenStored.add(new Button("1", "yahoo", TO_LEFT));
+            buttonsExpectedToHaveBeenStored.add(new Button("2", "Google", TO_RIGHT));
             verify(buttonDaoMock).insertAll(buttonsExpectedToHaveBeenStored);
         });
     }
@@ -359,11 +365,11 @@ public class FetchButtonsUseCaseTest extends MockedServerUnitTest {
             ButtonDao buttonDaoMock = mock(ButtonDao.class);
             //Mocking database to return these buttons below.
             List<Button> buttonsFoundInDatabase = new LinkedList<>();
-            buttonsFoundInDatabase.add(new Button("Yahoo!!", TO_LEFT));
-            buttonsFoundInDatabase.add(new Button("GitHub", TO_RIGHT));
-            buttonsFoundInDatabase.add(new Button("Bitbucket", TO_BOTTOM));
-            buttonsFoundInDatabase.add(new Button("GitLab", TO_LEFT));
-            buttonsFoundInDatabase.add(new Button("Google", TO_BOTTOM));
+            buttonsFoundInDatabase.add(new Button("1", "Yahoo!!", TO_LEFT));
+            buttonsFoundInDatabase.add(new Button("5", "GitHub", TO_RIGHT));
+            buttonsFoundInDatabase.add(new Button("4", "Bitbucket", TO_BOTTOM));
+            buttonsFoundInDatabase.add(new Button("3", "GitLab", TO_LEFT));
+            buttonsFoundInDatabase.add(new Button("2", "Google", TO_BOTTOM));
             when(buttonDaoMock.findAll()).thenReturn(Single.just(buttonsFoundInDatabase));
             //Turning database writes into no-ops.
             doNothing().when(buttonDaoMock).insertAll(ArgumentMatchers.anyList());

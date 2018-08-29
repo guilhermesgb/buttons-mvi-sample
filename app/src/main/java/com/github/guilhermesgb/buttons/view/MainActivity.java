@@ -133,7 +133,7 @@ public class MainActivity extends MviActivity<ButtonsView, ButtonsPresenter> imp
                 Toast.makeText(
                     getApplicationContext(),
                     toastMessage,
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show();
             }));
         }

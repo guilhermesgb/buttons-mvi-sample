@@ -32,12 +32,22 @@ public class NetworkModule {
 
     @Provides @Singleton
     ApiEndpoints provideApiEndpoints(@Nullable @ForNetwork String apiBaseUrl) {
+        //When apiBaseUrl is null, it means we should use BuildConfig.API_BASE_URL instead.
         if (isEmpty(apiBaseUrl)) {
             return () -> {
                 List<Button> buttonsComingFromTheRemoteServer = new LinkedList<>();
-                buttonsComingFromTheRemoteServer.add(new Button("Apple", TO_BOTTOM));
-                buttonsComingFromTheRemoteServer.add(new Button("yahoo", TO_LEFT));
-                buttonsComingFromTheRemoteServer.add(new Button("Google", TO_RIGHT));
+                buttonsComingFromTheRemoteServer.add(new Button("0", "Apple", TO_BOTTOM));
+                buttonsComingFromTheRemoteServer.add(new Button("1", "yahoo", TO_LEFT));
+                buttonsComingFromTheRemoteServer.add(new Button("2", "Google", TO_RIGHT));
+                buttonsComingFromTheRemoteServer.add(new Button("3", "Apple", TO_BOTTOM));
+                buttonsComingFromTheRemoteServer.add(new Button("4", "yahoo", TO_LEFT));
+                buttonsComingFromTheRemoteServer.add(new Button("5", "Google", TO_RIGHT));
+                buttonsComingFromTheRemoteServer.add(new Button("6", "Apple", TO_BOTTOM));
+                buttonsComingFromTheRemoteServer.add(new Button("7", "yahoo", TO_LEFT));
+                buttonsComingFromTheRemoteServer.add(new Button("8", "Google", TO_RIGHT));
+                buttonsComingFromTheRemoteServer.add(new Button("9", "Apple", TO_BOTTOM));
+                buttonsComingFromTheRemoteServer.add(new Button("10", "yahoo", TO_LEFT));
+                buttonsComingFromTheRemoteServer.add(new Button("11", "Google", TO_RIGHT));
                 return Single.just(buttonsComingFromTheRemoteServer);
             };
         }
